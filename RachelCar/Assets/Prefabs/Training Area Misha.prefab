@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &86573630107278037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004869387199135227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 1
+  TakeActionsBetweenDecisions: 1
+--- !u!114 &9053310397505858060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004869387199135227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a0a45a28697d49b1b977ff32b5157ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 100000
+  speed: 2
+  swimTime: 10
+  rotationSpeed: 4
+  foundReward: 1
+  winBonus: 1
+  drownPunish: -0.005
+  wallPunish: -0.001
+  numBeforeChanging: 5
+--- !u!1001 &4139928127220045455
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2495346754720872210, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346754720872210, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346754720872210, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346754720872210, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346754720872210, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346754720872210, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346754720872210, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346754720872210, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346754720872210, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346754720872210, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346754720872210, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346754720872211, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_Name
+      value: Training Area Misha
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346756013157232, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346756013157232, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[0]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346756083226987, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2495346756083226987, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.26
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2495346756013157234, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+    - {fileID: 2495346756013157233, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+--- !u!1 &2004869387199135227 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2495346756013157236, guid: 7a21e32a67fee42a591d3ce60df26694, type: 3}
+  m_PrefabInstance: {fileID: 4139928127220045455}
+  m_PrefabAsset: {fileID: 0}

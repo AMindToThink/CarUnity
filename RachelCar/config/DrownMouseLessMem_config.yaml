@@ -1,0 +1,23 @@
+behaviors:
+  DrownMouse:
+    trainer_type:   ppo
+    hyperparameters:
+        batch_size:   1024
+        beta: 5.0e-3
+        buffer_size:  10240
+        epsilon: 0.2
+        learning_rate:        0.0003
+        learning_rate_schedule:       linear
+        num_epoch: 3
+    network_settings:
+        normalize:    False
+        hidden_units: 128
+        num_layers:   3
+        use_recurrent: false
+    reward_signals:
+        extrinsic:
+            gamma:      0.99
+            strength:   1.0
+    max_steps:      15e6
+    time_horizon:   64
+    summary_freq:   50000
