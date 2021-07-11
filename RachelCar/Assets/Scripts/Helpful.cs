@@ -44,5 +44,28 @@ public static class Helpful
         }
         return sum;
     }
-    
+    public static Transform FindBeginsWith(Transform parent, string s)//no longer necessary, thankfully
+    {
+        
+        for(int i = 0; i < parent.childCount; i++)
+        {
+            Transform child = parent.GetChild(i);
+            if (child.name.Substring(0, s.Length).Equals(s))
+            {
+                return child.transform;
+            }
+            Transform childSearch = FindBeginsWith(child, s);
+            if (childSearch != null)
+            {
+                return childSearch;
+            }
+        }
+        
+        return null;
+    }
+    public static void PrintQuaternion(Quaternion q)
+    {
+        Debug.Log("Quaternion: " + q.w + ", " + q.x + ", " + q.y + ", " + q.z);
+
+    }
 }
