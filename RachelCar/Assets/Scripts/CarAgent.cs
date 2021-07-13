@@ -9,6 +9,7 @@ public class CarAgent : Agent
 {
     private CarController carController;
     private Track_Generator trackGen;
+    private Rigidbody rb;
     Scene activeScene;
     // Start is called before the first frame update
     void Start()
@@ -18,7 +19,15 @@ public class CarAgent : Agent
         //Debug.Log("Scene " + activeScene + " count " + activeScene.rootCount);
         //Debug.Log("Root2 " + activeScene.GetRootGameObjects()[activeScene.rootCount - 1]);
         //start = activeScene.GetRootGameObjects()[activeScene.rootCount - 2].transform.GetChild(0).GetChild(2);
-        trackGen = GameObject.Find("TrackGen").GetComponent<Track_Generator>();
+        trackGen = GameObject.Find("TrackGenerator").GetComponent<Track_Generator>();
+
+        startVec = new Vector3(0f, startY, 0f);
+        
+        rb = GetComponent<Rigidbody>();
+
+        waypointDisSq = waypointDis * waypointDis;
+
+        timePunish = baseTimePunish / trackSize;
     }
 
     // Update is called once per frame
@@ -27,18 +36,45 @@ public class CarAgent : Agent
 
     }
 
+    
+    public float startY = 1f;
+    public float startV = 1f;
+    public uint trackSize = 1;
 
-    public Transform start;
+    private Vector3 startVec;
+    private GameObject randTrack;
+    private Transform waypoints;
+    private bool[] reachedWayPoints;
+    private Transform mostRecentWayPoint;
+    private int reachedCount;
+    private float wayAddReward;
+    private Transform startGrid;
+    private Vector3 end;
+
+    private float stayTime = 0f;
     public override void OnEpisodeBegin()
     {
+        stayTime = Time.time;
         //base.OnEpisodeBegin(); Was here by default but isn't in the tutorial
 
-        //trackGen.CreateTrack(false, false, 1);
+        trackGen.CreateTrack(false, false, (int)trackSize);
+        //waypoints = 
         //The track insists upon putting itself last, therefore it is at rootCount-1.
-        start = activeScene.GetRootGameObjects()[activeScene.rootCount-2].transform.GetChild(0).Find("StartGrid");
-        transform.position = start.position;
+        randTrack = activeScene.GetRootGameObjects()[activeScene.rootCount - 1];
+
+
+        waypoints = randTrack.transform.Find("W-P-C");
+        reachedWayPoints = new bool[waypoints.childCount];
+        wayAddReward = 1f/waypoints.childCount;
+        reachedCount = 0;
+        
+        startGrid = randTrack.transform.GetChild(0).Find("StartGrid");
+        end = startGrid.position + startGrid.forward * 100f;
+        mostRecentWayPoint = startGrid.transform;
         //Helpful.PrintQuaternion(start.rotation);
-        transform.rotation = start.rotation;
+        transform.SetPositionAndRotation(startGrid.position + startVec, startGrid.rotation);
+        rb.velocity = transform.forward * startV;
+
         //transform.rotation.eulerAngles.Set(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y+Mathf.PI, transform.rotation.eulerAngles.z);
         //Helpful.PrintQuaternion(transform.rotation);
     }
@@ -52,19 +88,53 @@ public class CarAgent : Agent
     
     public override void OnActionReceived(float[] vectorAction)
     {
+        
         Act(vectorAction);
         Reward(vectorAction);
 
         //base.OnActionReceived(vectorAction);Was here by default but isn't in the tutorial
     }
+    public float waypointDis;
+    private float waypointDisSq;
     private void Act(float[] vectorAction)
     {
-        carController.Move(vectorAction[0], vectorAction[1], vectorAction[1], vectorAction[2]);
-
+        carController.Move(vectorAction[0], vectorAction[1], vectorAction[1], 0f/*vectorAction[2]*/);
+        
+        
     }
+
+    [Header("Rewards")]
+    public float baseTimePunish = -.0001f;
+    private float timePunish;
+
+    public float forwardRewardMultiplier = .0002f;
+    public float secondsWithoutWaypoint = 100f;
+
     private void Reward(float[] vectorAction)
     {
-        AddReward(vectorAction[1]);
+        AddReward(timePunish + vectorAction[1] * forwardRewardMultiplier);
+        for (int i = 0; i < waypoints.childCount; i++)
+        {
+            if (!reachedWayPoints[i] && waypointDisSq >= Vector3.SqrMagnitude(transform.position - waypoints.GetChild(i).position))
+            {
+                reachedWayPoints[i] = true;
+                reachedCount++;
+                mostRecentWayPoint = waypoints.GetChild(i);
+                stayTime = Time.time;
+                AddReward(wayAddReward);
+                //Debug.Log("A point");
+            }
+        }
+        if (Time.time - stayTime >= secondsWithoutWaypoint)
+        {
+            EndEpisode();
+        }
+        //SetReward(reachedCount/reachedWayPoints.Length);
+        if(reachedCount == reachedWayPoints.Length && waypointDisSq >= Vector3.SqrMagnitude(transform.position - end))
+        {
+
+            EndEpisode();
+        }
     }
 
     public override void Heuristic(float[] actionsOut)
@@ -72,7 +142,7 @@ public class CarAgent : Agent
 
         actionsOut[0] = Input.GetAxis("Horizontal");
         actionsOut[1] = Input.GetAxis("Vertical");
-        actionsOut[2] = Input.GetAxis("Jump");
+        //actionsOut[2] = Input.GetAxis("Jump");
     }
     
 }

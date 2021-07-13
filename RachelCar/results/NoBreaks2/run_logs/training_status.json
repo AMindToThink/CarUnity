@@ -1,0 +1,29 @@
+{
+    "Car": {
+        "checkpoints": [
+            {
+                "steps": 499979,
+                "file_path": "results\\NoBreaks2\\Car\\Car-499979.nn",
+                "reward": -0.28162120617344044,
+                "creation_time": 1626133270.301204
+            },
+            {
+                "steps": 500043,
+                "file_path": "results\\NoBreaks2\\Car\\Car-500043.nn",
+                "reward": -0.28162120617344044,
+                "creation_time": 1626133272.3735127
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 500043,
+            "file_path": "results\\NoBreaks2\\Car.nn",
+            "reward": -0.28162120617344044,
+            "creation_time": 1626133272.3735127
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.1.0",
+        "mlagents_version": "0.20.0",
+        "tensorflow_version": "2.3.2"
+    }
+}
