@@ -7,10 +7,10 @@ public class Crashing : MonoBehaviour
     public bool crashing;
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.name);
+        //Debug.Log(collision.gameObject.name);
         if(collision.gameObject.name.Equals("RTG Track"))
         {
-            Debug.Log("Crash");
+            //Debug.Log("Crash");
             crashing = true;
         }
     }

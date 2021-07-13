@@ -39,7 +39,8 @@ public class CarAgent : Agent
     
     public float startY = 1f;
     public float startV = 1f;
-    public uint trackSize = 1;
+    [Range(1,10)]
+    public int trackSize = 1;
 
     private Vector3 startVec;
     private GameObject randTrack;
@@ -57,26 +58,44 @@ public class CarAgent : Agent
         stayTime = Time.time;
         //base.OnEpisodeBegin(); Was here by default but isn't in the tutorial
 
-        trackGen.CreateTrack(false, false, (int)trackSize);
-        //waypoints = 
+        CreateTrack();
+
+        TrackRB();
+
+        WaypointSetup();
+
+        StartSetup();
+
+        
+    }
+    private void CreateTrack()
+    {
+        trackGen.CreateTrack(false, false, trackSize);
+
         //The track insists upon putting itself last, therefore it is at rootCount-1.
         randTrack = activeScene.GetRootGameObjects()[activeScene.rootCount - 1];
-
-
+    }
+    private void TrackRB()
+    {
+        Rigidbody trackRB = randTrack.AddComponent<Rigidbody>();
+        //By giving the track a rigidbody, OnTriggerEnter in the Crashing.cs script will crash with the track as a whole rather than just a part of it.
+        trackRB.isKinematic = true;
+    }
+    private void WaypointSetup()
+    {
         waypoints = randTrack.transform.Find("W-P-C");
         reachedWayPoints = new bool[waypoints.childCount];
-        wayAddReward = 1f/waypoints.childCount;
+        wayAddReward = 1f / waypoints.childCount;
         reachedCount = 0;
-        
+    }
+    private void StartSetup()
+    {
         startGrid = randTrack.transform.GetChild(0).Find("StartGrid");
         end = startGrid.position + startGrid.forward * 100f;
         mostRecentWayPoint = startGrid.transform;
         //Helpful.PrintQuaternion(start.rotation);
         transform.SetPositionAndRotation(startGrid.position + startVec, startGrid.rotation);
         rb.velocity = transform.forward * startV;
-
-        //transform.rotation.eulerAngles.Set(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y+Mathf.PI, transform.rotation.eulerAngles.z);
-        //Helpful.PrintQuaternion(transform.rotation);
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -109,6 +128,9 @@ public class CarAgent : Agent
 
     public float forwardRewardMultiplier = .0002f;
     public float secondsWithoutWaypoint = 100f;
+    public float noWaypointPunish = -.2f;
+    public float crashPunish = -.2f;
+    public float completeReward = .5f;
 
     private void Reward(float[] vectorAction)
     {
@@ -125,18 +147,32 @@ public class CarAgent : Agent
                 //Debug.Log("A point");
             }
         }
-        if (Time.time - stayTime >= secondsWithoutWaypoint)
+        //Failing
+        if (GetComponent<Crashing>().crashing)
         {
-            EndEpisode();
+            End(crashPunish);
         }
+        else if (Time.time - stayTime >= secondsWithoutWaypoint)
+        {
+            End(noWaypointPunish);
+        }
+        //Winning
+        else if (reachedCount == reachedWayPoints.Length
+            && waypointDisSq >= Vector3.SqrMagnitude(transform.position - end))
+        {
+            End(completeReward);
+            
+        }
+        
         //SetReward(reachedCount/reachedWayPoints.Length);
-        if(reachedCount == reachedWayPoints.Length && waypointDisSq >= Vector3.SqrMagnitude(transform.position - end))
-        {
-
-            EndEpisode();
-        }
+        
     }
-
+    private void End(float reward)
+    {
+        AddReward(reward);
+        GetComponent<Crashing>().crashing = false;
+        EndEpisode();
+    }
     public override void Heuristic(float[] actionsOut)
     {
 

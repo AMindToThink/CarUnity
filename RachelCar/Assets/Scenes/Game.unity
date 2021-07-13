@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5719627, g: 0.57602376, b: 0.68874544, a: 1}
+  m_IndirectSpecularColor: {r: 0.52571356, g: 0.52633, b: 0.6414783, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -298,13 +298,16 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  startY: 2
-  startV: 10
+  startY: 0.22
+  startV: 0
   trackSize: 1
   waypointDis: 15
   baseTimePunish: -0.0001
   forwardRewardMultiplier: 0.0001
   secondsWithoutWaypoint: 100
+  noWaypointPunish: -0.2
+  crashPunish: -0.2
+  completeReward: 0.5
 --- !u!114 &654674700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,6 +350,19 @@ MonoBehaviour:
   m_Height: 50
   m_Grayscale: 0
   m_Compression: 1
+--- !u!114 &654674702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 654674697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff1986555aec1a44eb4ad897f42c291d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crashing: 0
 --- !u!4 &654674706 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8432315136648657172, guid: 54ce45ff73be24e32934a39a52649a21, type: 3}
@@ -447,24 +463,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1323453765 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8432315136648225530, guid: 54ce45ff73be24e32934a39a52649a21, type: 3}
-  m_PrefabInstance: {fileID: 8432315137461585999}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1323453767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1323453765}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff1986555aec1a44eb4ad897f42c291d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crashing: 0
 --- !u!1001 &8432315137461585999
 PrefabInstance:
   m_ObjectHideFlags: 0
