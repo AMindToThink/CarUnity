@@ -117,7 +117,7 @@ public class CarAgent : Agent
     private float waypointDisSq;
     private void Act(float[] vectorAction)
     {
-        carController.Move(vectorAction[0], vectorAction[1], vectorAction[1], 0f/*vectorAction[2]*/);
+        carController.Move(vectorAction[0], vectorAction[1], 0f/*vectorAction[1]*/, 0f/*vectorAction[2]*/);
         
         
     }
