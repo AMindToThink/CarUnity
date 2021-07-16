@@ -10,6 +10,7 @@ public class CarAgent : Agent
     private CarController carController;
     private Track_Generator trackGen;
     private Rigidbody rb;
+    private Transform plane;
     Scene activeScene;
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class CarAgent : Agent
         //Debug.Log("Root2 " + activeScene.GetRootGameObjects()[activeScene.rootCount - 1]);
         //start = activeScene.GetRootGameObjects()[activeScene.rootCount - 2].transform.GetChild(0).GetChild(2);
         trackGen = GameObject.Find("TrackGenerator").GetComponent<Track_Generator>();
+        plane = GameObject.Find("Plane").transform;
 
         startVec = new Vector3(0f, startY, 0f);
         
@@ -28,6 +30,8 @@ public class CarAgent : Agent
         waypointDisSq = waypointDis * waypointDis;
 
         timePunish = baseTimePunish / trackSize;
+
+        jerkVelocities = new Vector3[3];
     }
 
     // Update is called once per frame
@@ -67,7 +71,9 @@ public class CarAgent : Agent
         StartSetup();
 
         
+        
     }
+    
     private void CreateTrack()
     {
         trackGen.CreateTrack(false, false, trackSize);
@@ -96,7 +102,12 @@ public class CarAgent : Agent
         //Helpful.PrintQuaternion(start.rotation);
         transform.SetPositionAndRotation(startGrid.position + startVec, startGrid.rotation);
         rb.velocity = transform.forward * startV;
+
+        plane.GetComponent<Collider>().enabled = true;
+        plane.up = startGrid.forward;
+        plane.position = transform.position - startGrid.forward * 5;
     }
+    
     public override void CollectObservations(VectorSensor sensor)
     {
         
@@ -117,7 +128,7 @@ public class CarAgent : Agent
     private float waypointDisSq;
     private void Act(float[] vectorAction)
     {
-        carController.Move(vectorAction[0], vectorAction[1], 0f/*vectorAction[1]*/, 0f/*vectorAction[2]*/);
+        carController.Move(vectorAction[0], vectorAction[1], vectorAction[1], 0f/*vectorAction[2]*/);
         
         
     }
@@ -127,6 +138,10 @@ public class CarAgent : Agent
     private float timePunish;
 
     public float forwardRewardMultiplier = .0002f;
+    public float jerkPunishMultiplier = -.0002f;
+    private Vector3[] jerkVelocities;
+
+
     public float secondsWithoutWaypoint = 100f;
     public float noWaypointPunish = -.2f;
     public float crashPunish = -.2f;
@@ -134,7 +149,11 @@ public class CarAgent : Agent
 
     private void Reward(float[] vectorAction)
     {
-        AddReward(timePunish + vectorAction[1] * forwardRewardMultiplier);
+        jerkVelocities[0] = jerkVelocities[1];
+        jerkVelocities[1] = jerkVelocities[2];
+        jerkVelocities[2] = rb.velocity;
+        //I dislike using Vector3.Magnitude, so I'm using bit wizardry instead
+        AddReward(timePunish + vectorAction[1] * forwardRewardMultiplier + jerkPunishMultiplier * Helpful.FastInverseSquareRoot(Vector3.SqrMagnitude((jerkVelocities[2]-jerkVelocities[1])-(jerkVelocities[1]-jerkVelocities[0]))));
         for (int i = 0; i < waypoints.childCount; i++)
         {
             if (!reachedWayPoints[i] && waypointDisSq >= Vector3.SqrMagnitude(transform.position - waypoints.GetChild(i).position))
@@ -146,6 +165,10 @@ public class CarAgent : Agent
                 AddReward(wayAddReward);
                 //Debug.Log("A point");
             }
+        }
+        if(reachedCount == reachedWayPoints.Length)
+        {
+            plane.GetComponent<Collider>().enabled = false;
         }
         //Failing
         if (GetComponent<Crashing>().crashing)
