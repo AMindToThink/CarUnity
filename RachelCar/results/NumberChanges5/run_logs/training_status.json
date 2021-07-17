@@ -1,0 +1,23 @@
+{
+    "Car": {
+        "checkpoints": [
+            {
+                "steps": 34263,
+                "file_path": "results\\NumberChanges5\\Car\\Car-34263.nn",
+                "reward": -1.6705511794425547,
+                "creation_time": 1626490693.8095775
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 34263,
+            "file_path": "results\\NumberChanges5\\Car.nn",
+            "reward": -1.6705511794425547,
+            "creation_time": 1626490693.8095775
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.1.0",
+        "mlagents_version": "0.20.0",
+        "tensorflow_version": "2.3.2"
+    }
+}

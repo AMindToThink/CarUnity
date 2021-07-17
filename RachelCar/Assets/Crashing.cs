@@ -8,7 +8,8 @@ public class Crashing : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         //Debug.Log(collision.gameObject.name);
-        if(collision.gameObject.name.Equals("RTG Track"))
+        string name = collision.gameObject.name;
+        if (name.Equals("RTG Track") || name.Equals("Plane"))
         {
             //Debug.Log("Crash");
             crashing = true;
@@ -16,7 +17,8 @@ public class Crashing : MonoBehaviour
     }
     void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.name.Equals("RTG Track"))
+        string name = collision.gameObject.name;
+        if (name.Equals("RTG Track") || name.Equals("Plane"))
         {
             crashing = false;
         }

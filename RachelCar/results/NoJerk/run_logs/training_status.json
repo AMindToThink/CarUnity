@@ -1,0 +1,47 @@
+{
+    "Car": {
+        "checkpoints": [
+            {
+                "steps": 6499968,
+                "file_path": "results\\NoJerk\\Car\\Car-6499968.nn",
+                "reward": null,
+                "creation_time": 1626525804.0823324
+            },
+            {
+                "steps": 6999986,
+                "file_path": "results\\NoJerk\\Car\\Car-6999986.nn",
+                "reward": 116.86131994053721,
+                "creation_time": 1626528492.5841477
+            },
+            {
+                "steps": 7499968,
+                "file_path": "results\\NoJerk\\Car\\Car-7499968.nn",
+                "reward": 15.746431533247232,
+                "creation_time": 1626531182.2707741
+            },
+            {
+                "steps": 7999968,
+                "file_path": "results\\NoJerk\\Car\\Car-7999968.nn",
+                "reward": 25.542985753466684,
+                "creation_time": 1626533866.1328485
+            },
+            {
+                "steps": 8182606,
+                "file_path": "results\\NoJerk\\Car\\Car-8182606.nn",
+                "reward": 194.8128945827484,
+                "creation_time": 1626534853.7282643
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 8182606,
+            "file_path": "results\\NoJerk\\Car.nn",
+            "reward": 194.8128945827484,
+            "creation_time": 1626534853.7282643
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.1.0",
+        "mlagents_version": "0.20.0",
+        "tensorflow_version": "2.3.2"
+    }
+}

@@ -105,7 +105,7 @@ public class CarAgent : Agent
 
         plane.GetComponent<Collider>().enabled = true;
         plane.up = startGrid.forward;
-        plane.position = transform.position - startGrid.forward * 5;
+        plane.position = transform.position - startGrid.forward * 10;
     }
     
     public override void CollectObservations(VectorSensor sensor)
@@ -126,10 +126,12 @@ public class CarAgent : Agent
     }
     public float waypointDis;
     private float waypointDisSq;
+    public float handbreakDecay = .01f;
     private void Act(float[] vectorAction)
     {
-        carController.Move(vectorAction[0], vectorAction[1], vectorAction[1], 0f/*vectorAction[2]*/);
-        
+        //Debug.Log(vectorAction[2]);
+        carController.Move(vectorAction[0], vectorAction[1], vectorAction[1], 0f/*(0<vectorAction[2])?1:0*/);
+        rb.velocity -= vectorAction[2]*rb.velocity * handbreakDecay;
         
     }
 
@@ -138,6 +140,7 @@ public class CarAgent : Agent
     private float timePunish;
 
     public float forwardRewardMultiplier = .0002f;
+    public float goingBackwardsPunish = -.01f;
     public float jerkPunishMultiplier = -.0002f;
     private Vector3[] jerkVelocities;
 
@@ -149,11 +152,12 @@ public class CarAgent : Agent
 
     private void Reward(float[] vectorAction)
     {
-        jerkVelocities[0] = jerkVelocities[1];
+        /*jerkVelocities[0] = jerkVelocities[1];
         jerkVelocities[1] = jerkVelocities[2];
         jerkVelocities[2] = rb.velocity;
+        */
         //I dislike using Vector3.Magnitude, so I'm using bit wizardry instead
-        AddReward(timePunish + vectorAction[1] * forwardRewardMultiplier + jerkPunishMultiplier * Helpful.FastInverseSquareRoot(Vector3.SqrMagnitude((jerkVelocities[2]-jerkVelocities[1])-(jerkVelocities[1]-jerkVelocities[0]))));
+        AddReward(timePunish + ((vectorAction[1] < 0)? goingBackwardsPunish: 0f) + vectorAction[1] * forwardRewardMultiplier /*+ jerkPunishMultiplier * Helpful.FastInverseSquareRoot(Vector3.SqrMagnitude((jerkVelocities[2]-jerkVelocities[1])-(jerkVelocities[1]-jerkVelocities[0])))*/);
         for (int i = 0; i < waypoints.childCount; i++)
         {
             if (!reachedWayPoints[i] && waypointDisSq >= Vector3.SqrMagnitude(transform.position - waypoints.GetChild(i).position))
@@ -201,7 +205,7 @@ public class CarAgent : Agent
 
         actionsOut[0] = Input.GetAxis("Horizontal");
         actionsOut[1] = Input.GetAxis("Vertical");
-        //actionsOut[2] = Input.GetAxis("Jump");
+        actionsOut[2] = Input.GetAxis("Jump");
     }
     
 }
