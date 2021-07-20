@@ -262,7 +262,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8432315136659576644, guid: 54ce45ff73be24e32934a39a52649a21, type: 3}
       propertyPath: m_CentreOfMassOffset.y
-      value: -0.1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8432315136659653736, guid: 54ce45ff73be24e32934a39a52649a21, type: 3}
       propertyPath: m_Enabled
