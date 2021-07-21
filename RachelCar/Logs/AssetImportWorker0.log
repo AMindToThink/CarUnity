@@ -102,3 +102,73 @@ Total: 2.256625 ms (FindLiveObjects: 0.185333 ms CreateObjectMapping: 0.056292 m
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.003388 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 0.71 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.185 seconds
+Platform modules already initialized, skipping
+Switching build target platform(2) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
+Refreshing native plugins compatible for Editor in 0.64 ms, found 6 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2696 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 229.9 MB.
+System memory in use after: 230.0 MB.
+
+Unloading 37 unused Assets to reduce memory usage. Loaded Objects now: 3170.
+Total: 4.409208 ms (FindLiveObjects: 0.566750 ms CreateObjectMapping: 0.068416 ms MarkObjects: 3.516958 ms  DeleteObjects: 0.256167 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
+========================================================================
+Received Import Request.
+  Time since last request: 1584.629121 seconds.
+  path: Assets/Scripts/Python
+  artifactKey: Guid(e416e67f907be44808e672a9b8956d9d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Python using Guid(e416e67f907be44808e672a9b8956d9d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eac7c89e2dcadd83803f11be6e50b0bc') in 0.031548 seconds
+  Import took 0.054442 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.014452 seconds.
+  path: Assets/Scripts/Python
+  artifactKey: Guid(e416e67f907be44808e672a9b8956d9d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Python using Guid(e416e67f907be44808e672a9b8956d9d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eac7c89e2dcadd83803f11be6e50b0bc') in 0.000903 seconds
+  Import took 0.005817 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 287.247318 seconds.
+  path: Assets/Scripts/Python/base_script.py
+  artifactKey: Guid(67219cd5202b4425f949d309d2848bca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scripts/Python/base_script.py using Guid(67219cd5202b4425f949d309d2848bca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6810a439f1dacbc1f14332eec6224eac') in 0.579691 seconds
+  Import took 0.712156 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.009207 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for OSXStandalone target not found
+Refreshing native plugins compatible for Editor in 0.69 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  3.535 seconds
+Platform modules already initialized, skipping
+Switching build target platform(2) subTarget(0) extendedPlatform(0) -> platform(13) subTarget(537395200) extendedPlatform(0)
+Refreshing native plugins compatible for Editor in 0.62 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2692 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 234.4 MB.
+System memory in use after: 234.6 MB.
+
+Unloading 33 unused Assets to reduce memory usage. Loaded Objects now: 3174.
+Total: 4.160750 ms (FindLiveObjects: 1.066208 ms CreateObjectMapping: 0.060000 ms MarkObjects: 2.603333 ms  DeleteObjects: 0.430334 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:graphics/normal-map-encoding: 01000000000000000000000000000000 -> 02000000000000000000000000000000
