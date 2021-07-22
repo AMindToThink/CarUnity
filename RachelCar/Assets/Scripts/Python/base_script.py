@@ -1,7 +1,31 @@
 
 import mlagents
+import colorsys
 from mlagents_envs.environment import UnityEnvironment as UE
 
+#def RGBToHSL(r, g, b):
+#  r /= 255.0
+#  g /= 255.0
+#  b /= 255.0
+#  min = min(r, min(g, b))
+#  max = max(r, max(g, b))
+#  lumin = (max + min)/2
+#  sat = 0
+#  if lumin <= .5:
+#    sat = (max-min)/(max+min)
+#  else:
+#    sat = (max-min)/(2.0-max-min)
+#  hue = 0
+#  if r == max:
+#    hue = (g-b)/(max-min)
+#  elif g == max:
+#    hue = 2.0 + (b-r)/(max-min)
+#  else:
+#    hue = 4.0 + (r-g)/(max-min)
+#  hue *= 60
+#  if hue < 0:
+#    hue += 360.0
+#  return [round(hue, 0), round(sat, 2), round(value, 2)]
 env = UE(file_name='RollerballBuild', seed=1, side_channels=[])
 
 env.reset()
