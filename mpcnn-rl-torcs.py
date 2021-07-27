@@ -130,9 +130,8 @@ def CoSyNE(p, thresh, fitness_FX): #p = population x weights (nxm)=33x100
 data_sample = torch.rand(24,1,64,64)
 feature_out = mpcnn(data_sample)
 
-f = {}
-for name, param in mpcnn.named_parameters():
-    f.update({name: param})
+f = torch.cat([a.flatten() for a in mpcnn.parameters()])
+
 
 w, eval = CoSyNE(mpcnn.parameters(), thresh, fitK)
 
