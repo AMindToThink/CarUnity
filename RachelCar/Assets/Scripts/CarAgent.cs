@@ -131,7 +131,7 @@ public class CarAgent : Agent
     {
         //Debug.Log(vectorAction[2]);
         carController.Move(vectorAction[0], vectorAction[1], vectorAction[1], 0f/*(0<vectorAction[2])?1:0*/);
-        rb.velocity -= vectorAction[2]*rb.velocity * handbreakDecay;
+        //rb.velocity -= vectorAction[2]*rb.velocity * handbreakDecay;
         
     }
 
@@ -205,7 +205,7 @@ public class CarAgent : Agent
 
         actionsOut[0] = Input.GetAxis("Horizontal");
         actionsOut[1] = Input.GetAxis("Vertical");
-        actionsOut[2] = Input.GetAxis("Jump");
+        //actionsOut[2] = Input.GetAxis("Jump");
     }
     
 }

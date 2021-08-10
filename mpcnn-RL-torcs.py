@@ -41,9 +41,8 @@ mpcnn = MPCNN()
 
 def fitK(x):
     Fnorm = nn.functional.normalize(x)
-    [F[j] for j in range(len(F)-1)]
-    Fdif = [nn.functional.pairwise_distance(F[i],F[i+1]) for i in range(len(F))
-    D = torch.abs([Fdif])
+    Fdif = [nn.functional.pairwise_distance(Fnorm[i],Fnorm[i+1]) for i in range(len(Fnorm))]
+    D = torch.abs(Fdif)
     return torch.min(D) + torch.mean(D)
 
 
@@ -53,10 +52,15 @@ def fitK(x):
 class SRN(nn.Module):
     def __init__(self):
         super().__init__()
-        self.hidden = nn.RNN(3, 3, 1) #tanh activation built-in *paper uses sigmoid*
+        self.state = None
+        self.hiddenrec = nn.Linear(6, 3, bias=True) #tanh activation built-in *paper uses sigmoid*
+        self.outlayer = nn.Linear(3, 3, bias=True)
     def forward(self, x): #input: tensor of shape (L,N,Hin)(L, N, H_{in})(L,N,Hin​)
-        x = self.hidden(x) #output: tensor of shape (L,N,D∗Hout)(L, N, D * H_{out})(L,N,D∗Hout​)
-        return x
+        if self.state is None:
+            self.state = torch.zeros_like(x)
+        self.state = self.hiddenrec(torch.cat(self.state,x)) #output: tensor of shape (L,N,D∗Hout)(L, N, D * H_{out})(L,N,D∗Hout​)
+        out = self.outlayer(self.state)
+        return out
 
 srn = SRN()
 
@@ -126,9 +130,8 @@ def CoSyNE(p, thresh, fitness_FX): #p = population x weights (nxm)=33x100
 data_sample = torch.rand(24,1,64,64)
 feature_out = mpcnn(data_sample)
 
-F = {}
-for name, param in mpcnn.named_parameters():
-    F.update({name: param})
+f = torch.cat([a.flatten() for a in mpcnn.parameters()])
+
 
 w, eval = CoSyNE(mpcnn.parameters(), thresh, fitK)
 
